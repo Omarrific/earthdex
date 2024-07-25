@@ -22,7 +22,7 @@ const ImageUpload = () => {
     formData.append('file', file);
 
     try {
-      const result = await axios.post('https://earthdex-backend.vercel.app/api/route', formData, {
+      const result = await axios.post('https://earthdex-backend.onrender.com/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
