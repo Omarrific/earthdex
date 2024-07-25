@@ -1,38 +1,227 @@
-.App {
-  text-align: center;
+html, body {
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body, html, #root, .container {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  text-align: center;
+  padding: 20px;
+  background-color: #f8f9fc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
 }
 
-.App-link {
-  color: #61dafb;
+.globe-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s, pointer-events 0.5s;
+  overflow: hidden;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.spinning-globe {
+  width: 100px;
+  height: 100px;
+  background-image: url('globe.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.transitioning .globe-container {
+  opacity: 1;
+  pointer-events: auto;
+  animation: expandGlobe 2s forwards;
+}
+
+@keyframes expandGlobe {
+  0% {
+    transform: scale(1);
   }
-  to {
-    transform: rotate(360deg);
+  100% {
+    transform: scale(10);
   }
+}
+
+.home-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.home-title {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.start-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2e8b57;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.start-button:hover {
+  background-color: #245a40;
+}
+
+.transitioning .home-screen {
+  display: none;
+}
+
+.content {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.species-list, .current-species, .species-description {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.species-list {
+  border-right: 1px solid #ccc;
+}
+
+.species-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.species-list li {
+  cursor: pointer;
+  padding: 5px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.current-species {
+  text-align: center;
+}
+
+.current-species .image-gallery img {
+  margin: 5px;
+  width: 100px;
+  height: 100px;
+}
+
+.species-description {
+  text-align: left;
+}
+
+.upload-section, .upload-form {
+  margin-bottom: 20px;
+}
+
+.file-input {
+  display: inline-block;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.submit-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2e8b57;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #245a40;
+}
+
+.result, .error {
+  margin-top: 20px;
+}
+
+.error {
+  background-color: #ffebee;
+  border: 1px solid #ffcdd2;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #c62828;
+}
+
+.header {
+  width: 100%;
+  background-color: #2e8b57;
+  padding: 10px 0;
+  text-align: center;
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+}
+
+.header-title {
+  display: inline-block;
+  margin: 0;
+}
+
+.home-button {
+  margin: 20px;
+  background-color: #fff;
+  color: #2e8b57;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.home-button:hover {
+  background-color: #f1f1f1;
+}
+
+.hide-header {
+  display: none;
 }
