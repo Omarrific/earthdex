@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
-const API_URL = 'https://earthdex-backend.vercel.app/api/route';
-
-function App() {
+const ImageUpload = () => {
   const [file, setFile] = useState(null);
-  const [data, setData] = useState(null);
+  const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
 
-  const handleIdentifyClick = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     if (!file) {
-      setError('No file selected');
+      setError('No file selected.');
       return;
     }
 
@@ -21,46 +22,41 @@ function App() {
     formData.append('file', file);
 
     try {
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        body: formData
+      const result = await axios.post('https://earthdex-backend.vercel.app/api/route', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Network response was not ok: ${errorText}`);
-      }
-
-      const result = await response.json();
-      setData(result);
+      setResponse(result.data);
       setError(null);
-    } catch (error) {
-      setError(error.message);
-      setData(null);
+    } catch (err) {
+      setError('An error occurred while uploading the file.');
+      setResponse(null);
     }
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Earthdex</h1>
-        <form>
-          <input type="file" onChange={handleFileChange} />
-          <button type="button" onClick={handleIdentifyClick}>Identify Image</button>
-        </form>
-        {error && <p>Error: {error}</p>}
-        {data ? (
-          <div>
-            <h2>Result:</h2>
-            <p>Label: {data.label}</p>
-            <p>Score: {data.score}</p>
-          </div>
-        ) : (
-          <p>Upload an image and click "Identify Image" to get predictions...</p>
-        )}
-      </header>
+    <div>
+      <h1>Upload Image for Classification</h1>
+      <form onSubmit={handleSubmit}>
+        <input type="file" onChange={handleFileChange} />
+        <button type="submit">Upload</button>
+      </form>
+      {response && (
+        <div>
+          <h2>Result:</h2>
+          <p>Label: {response.label}</p>
+          <p>Score: {response.score}</p>
+        </div>
+      )}
+      {error && (
+        <div>
+          <h2>Error:</h2>
+          <p>{error}</p>
+        </div>
+      )}
     </div>
   );
-}
+};
 
-export default App;
+export default ImageUpload;
