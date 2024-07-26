@@ -128,6 +128,7 @@ const App = () => {
                       <input type="file" className="file-input" onChange={handleFileChange} />
                       <button type="submit" className="submit-button">Submit</button>
                     </form>
+                    <p className="hello-text">Due to limited free backend deployment options, the current performance of Earthdex may be slow and occasionally fail because of constraints with free API usage </p> 
                     {response && (
                       <div className="result">
                         {}
