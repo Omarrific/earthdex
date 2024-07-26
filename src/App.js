@@ -36,6 +36,7 @@ const App = () => {
       });
 
       const species = result.data.label;
+      const description = result.data.description;
       const imageUrl = URL.createObjectURL(file);
       setResponse(result.data);
       setError(null);
@@ -43,9 +44,9 @@ const App = () => {
       setSpeciesList((prevList) => {
         const newList = { ...prevList };
         if (newList[species]) {
-          newList[species].push(imageUrl);
+          newList[species].push({ url: imageUrl, description });
         } else {
-          newList[species] = [imageUrl];
+          newList[species] = [{ url: imageUrl, description }];
         }
         return newList;
       });
@@ -110,8 +111,11 @@ const App = () => {
                 <>
                   <h2>{selectedSpecies}</h2>
                   <div className="image-gallery">
-                    {speciesList[selectedSpecies].map((imageUrl, index) => (
-                      <img key={index} src={imageUrl} alt={selectedSpecies} />
+                    {speciesList[selectedSpecies].map((item, index) => (
+                      <div key={index} className="image-item">
+                        <img src={item.url} alt={selectedSpecies} />
+                        <p>{item.description}</p>
+                      </div>
                     ))}
                   </div>
                   <button className="home-button" onClick={handleBackToUpload}>Back to Upload</button>
@@ -126,7 +130,7 @@ const App = () => {
                     </form>
                     {response && (
                       <div className="result">
-                        <p>Species: {response.label}</p>
+                        {}
                       </div>
                     )}
                     {error && (
@@ -142,7 +146,7 @@ const App = () => {
             <div className="species-description">
               <h2>Description</h2>
               {selectedSpecies && (
-                <p>{speciesList[selectedSpecies].description}</p>
+                <p>{speciesList[selectedSpecies][0].description}</p>
               )}
             </div>
           </div>
