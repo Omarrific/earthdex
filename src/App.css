@@ -7,7 +7,7 @@ html, body {
 body, html, #root, .container {
   height: 100%;
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .container {
@@ -17,11 +17,11 @@ body, html, #root, .container {
   justify-content: center;
   text-align: center;
   padding: 20px;
-  background-color: #f8f9fc;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #0078d7 0%, #00c851 100%);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
+  color: #fff;
 }
 
 .globe-container {
@@ -37,7 +37,6 @@ body, html, #root, .container {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.5s, pointer-events 0.5s;
-  overflow: hidden;
 }
 
 .spinning-globe {
@@ -83,21 +82,26 @@ body, html, #root, .container {
 .home-title {
   font-size: 3em;
   margin-bottom: 20px;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .start-button {
-  padding: 10px 20px;
+  padding: 10px 30px;
   border: none;
-  border-radius: 5px;
-  background-color: #2e8b57;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #0056b3 0%, #00c851 100%);
   color: #fff;
   font-size: 16px;
   cursor: pointer;
   margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s, transform 0.3s;
 }
 
 .start-button:hover {
-  background-color: #245a40;
+  background: linear-gradient(135deg, #004495 0%, #00963f 100%);
+  transform: scale(1.05);
 }
 
 .transitioning .home-screen {
@@ -117,38 +121,63 @@ body, html, #root, .container {
   padding: 20px;
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  margin: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .species-list {
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #ffffff55;
 }
 
 .species-list ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .species-list li {
   cursor: pointer;
-  padding: 5px 0;
-  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  border-bottom: 1px solid #ffffff55;
+  transition: background 0.3s;
 }
 
-.current-species {
-  text-align: center;
+.species-list li:hover {
+  background-color: rgba(0, 120, 215, 0.3);
 }
 
 .current-species .image-gallery img {
   margin: 5px;
   width: 100px;
   height: 100px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+.current-species .image-gallery img:hover {
+  transform: scale(1.1);
 }
 
 .species-description {
   text-align: left;
+  color: #fff;
 }
 
-.upload-section, .upload-form {
+.upload-section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.upload-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 20px;
 }
 
@@ -163,13 +192,14 @@ body, html, #root, .container {
 }
 
 .submit-button {
-  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   background-color: #2e8b57;
   color: #fff;
   font-size: 16px;
   cursor: pointer;
+  margin-top: 10px;
+  padding: 10px 20px;
 }
 
 .submit-button:hover {
@@ -191,7 +221,7 @@ body, html, #root, .container {
 
 .header {
   width: 100%;
-  background-color: #2e8b57;
+  background-color: #0056b3;
   padding: 10px 0;
   text-align: center;
   color: #fff;
@@ -199,7 +229,7 @@ body, html, #root, .container {
   top: 0;
   left: 0;
   z-index: 1;
-  display: block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .header-title {
@@ -209,19 +239,45 @@ body, html, #root, .container {
 
 .home-button {
   margin: 20px;
-  background-color: #fff;
-  color: #2e8b57;
+  background-color: #ffffff;
+  color: #0056b3;
   border: none;
-  border-radius: 5px;
+  border-radius: 25px;
   padding: 10px 20px;
   cursor: pointer;
   font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s, transform 0.3s;
 }
 
 .home-button:hover {
   background-color: #f1f1f1;
+  transform: scale(1.05);
 }
 
-.hide-header {
-  display: none;
+.file-input {
+  display: inline-block;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 16px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.file-indicator {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  color: white;
+}
+
+.file-icon {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.file-name {
+  font-size: 14px;
 }

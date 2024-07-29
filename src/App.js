@@ -5,6 +5,7 @@ import './App.css';
 const deployed = false;
 
 const App = () => {
+  
   const [file, setFile] = useState(null);
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
@@ -12,6 +13,8 @@ const App = () => {
   const [selectedSpecies, setSelectedSpecies] = useState(null);
   const [isHome, setIsHome] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const formatSpeciesName = (name) => name.replace(/_/g, ' ');
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -35,7 +38,7 @@ const App = () => {
         },
       });
 
-      const species = result.data.label;
+      const species = formatSpeciesName(result.data.label);
       const description = result.data.description;
       const imageUrl = URL.createObjectURL(file);
       setResponse(result.data);
@@ -57,6 +60,7 @@ const App = () => {
       setError('An error occurred while uploading the file.');
       setResponse(null);
     }
+    setFile(null);
   };
 
   const handleSpeciesClick = (species) => {
@@ -128,7 +132,12 @@ const App = () => {
                       <input type="file" className="file-input" onChange={handleFileChange} />
                       <button type="submit" className="submit-button">Submit</button>
                     </form>
-                    <p className="hello-text">Due to limited free backend deployment options, the current performance of Earthdex may be slow and occasionally fail because of constraints with free API usage </p> 
+                    {file && (
+                      <div className="file-indicator">
+                        <span className="file-icon">📄</span>
+                        <span className="file-name">{file.name}</span>
+                      </div>
+                    )}
                     {response && (
                       <div className="result">
                         {}
